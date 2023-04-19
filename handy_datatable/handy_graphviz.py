@@ -1,6 +1,4 @@
-from graphviz import *
 import os
-
 
 sqlite_dataType = ['NULL', 'INTEGER', 'REAL', 'TEXT', 'BLOB']
 
