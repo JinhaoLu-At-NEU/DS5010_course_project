@@ -2,7 +2,7 @@ import os
 
 sqlite_dataType = ['NULL', 'INTEGER', 'REAL', 'TEXT', 'BLOB']
 
-class data_table:
+class viz_data_table:
     """
     Create data table for use in relational database
     Define entities of the table
@@ -16,8 +16,6 @@ class data_table:
         self.table_name = table_name
         self.table_entity = table_entity
         self.entity_list = [x[0] for x in table_entity]
-        self.pk = primary_key
-        self.fk = forign_key
 
     def add(self, entity_name, entity_dataType):
         #Add entity to the table by specific the datatype of the entity
@@ -70,24 +68,8 @@ class data_table:
         #return number of entity from the table
         return len(self.entity_list)
 
-
-    def set_primaryKey(self, entity_name):
-        if entity_name not in self.entity_list:
-            print('set primary key fail \n')
-            print('Specific entity does not exists in the table \n')
-        else:
-            self.pk = entity_name
-            print('set primary key succeed')
-            print('Current primary key is: ', entity_name, '\n')
-
     def get_entity(self):
         return self.entity_list
-
-    def get_pk(self):
-        return self.pk
-
-    def get_fk(self):
-        return self.fk 
 
     def graphviz_convert_export(self, export_path):#convert data_table into graphviz dot file format 
         if os.path.exists(export_path) is True:
@@ -111,18 +93,19 @@ class data_table:
             print('Mapping relationship fail')
             print(table2_entity_name+' in '+table2+' not found')
         else:
-            mapping_relation.append((table1.table_name+':'+table1_entity_name,table2.table_name+':'+table2_entity_name))
+            viz_data_table.mapping_relation.append((table1.table_name+':'+table1_entity_name,table2.table_name+':'+table2_entity_name))
 
     def relations_status():
-        for i in mapping_relation:
+        for i in viz_data_table.mapping_relation:
             print(i,'\n')
 
     def clean_relations():
-        mapping_relation = []
+        viz_data_table.mapping_relation = []
 
     def drop_relations(relation):
-        mapping_relation.remoce(relation)
+        viz_data_table.mapping_relation.remoce(relation)
         print(relation + 'has been dropped')
 
     def get_relations():
-        return mapping_relation
+        return viz_data_table.mapping_relation
+
