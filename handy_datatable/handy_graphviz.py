@@ -9,7 +9,7 @@ class viz_data_table:
     """
     mapping_relation = []
 
-    def __init__(self, table_name, table_entity = None, primary_key = None, forign_key = []):
+    def __init__(self, table_name, table_entity = [], primary_key = None, forign_key = []):
         #Initialize the table with given table entities (default is None)
         #The table_entity will be a list of tuples [(entity_name, entity_dataType)]
         #SQlite3 supported data type: NULL, INTEGER, REAL, TEXT, BLOB
@@ -71,6 +71,9 @@ class viz_data_table:
     def get_entity(self):
         return self.entity_list
 
+    def get_table_name(self):
+        return self.table_name
+
     def graphviz_convert_export(self, export_path):#convert data_table into graphviz dot file format 
         if os.path.exists(export_path) is True:
             dot_file = open(export_path, mode = 'a')
@@ -103,9 +106,8 @@ class viz_data_table:
         viz_data_table.mapping_relation = []
 
     def drop_relations(relation):
-        viz_data_table.mapping_relation.remove(relation)
+        viz_data_table.mapping_relation.remoce(relation)
         print(relation + 'has been dropped')
 
     def get_relations():
         return viz_data_table.mapping_relation
-
