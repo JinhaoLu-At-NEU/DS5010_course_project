@@ -61,9 +61,6 @@ class viz_data_table:
             dataType = table_entity[i][1]
             print(i+1,': ', entity,'\t', dataType)
 
-    def __str__(self):
-        return table_status(self)
-
     def __len__(self):
         #return number of entity from the table
         return len(self.entity_list)
