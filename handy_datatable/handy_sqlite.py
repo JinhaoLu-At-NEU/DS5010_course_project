@@ -9,7 +9,6 @@ class sqlite_data_table:
     Create data table for use in relational database
     Define entities of the table
     """
-    mapping_relation = []
 
     def __init__(self, table_name, table_entity = [], primary_key = None, forign_key = []):
         #Initialize the table with given table entities (default is None)
@@ -94,10 +93,35 @@ class sqlite_data_table:
     def get_fk(self):
         return self.fk 
 
-    def create_table(self, export_path = None):
+    def file_if_exists(file):
+        if os.path.exists(file):
+            return True
+        else:
+            return False
+
+    def check_value_column(self, datafile):
+        entity_num = len(self.entity_list)
+        line_num = 0
+        if file_if_exists(datafile) is True:
+            data_file = open(datafile)
+            for line in data_file:
+                value = line.split(',')
+                if len(value) != entity_num:
+                    print('Number of insert values not fit')
+                    print('False index #', line_num)
+                    return False
+                else:
+                    return True
+        else:
+            print('data file doesn\'t exist')
+            return False
+
+
+    def create_table(self):
         pk = self.pk 
         table_name = self.table_name
-        statement = 'CREATE TABLE ' + table_name +'(\n'
+        sql_file = open(table_name+'.sql','w')
+        sql_file.write('CREATE TABLE ' + table_name +'(\n')
         table_entity = self.table_entity
         num = 0
         for i in table_entity:
@@ -105,36 +129,33 @@ class sqlite_data_table:
             dataType = i[1]
             num += 1 
             if name == pk:
-                s_line = name + ' ' + dataType + ' PRIMARY KEY,'
+                sql_file.write(name + ' ' + dataType + ' PRIMARY KEY,\n')
             elif num == len(table_entity):
-                s_line = name + ' ' + dataType + ');'
+                sql_file.write(name + ' ' + dataType + ');\n')
             else:
-                s_line = name + ' ' + dataType + ','
-            statement += s_line
+                sql_file.write(name + ' ' + dataType + ',\n')
+        sql_file.close()
 
-        if export_path is not None:
-            sql_file = open(table_name+'.sql', 'w')
-            sql_file.write(statement)
-            sql_file.close()
-        else:
-            return statement
 
+    def check_line_num(data_file):
+        line = open(data_file,'r')
+        line_num = line.readlines()
+        line.close()
+        return line_num
 
     def insert_table(self, data_file,export_path):
         table_name = self.table_name
         entity_list = self.entity_list
         sql_statement = open(export_path, 'w')
-        sql_statement.write('INSERT INTO ' + table_name + '(' + entity_list + ')')
-        if os.path.exists(data_file) not True:
+        if os.path.exists(data_file) is not True:
             print('Data file not found')
             return 0
         else:
+            line_num = sqlite_data_table.check_line_num(data_file)
             data_file = open(data_file, 'r')
+            num = 0
             for line in data_file:
-                data_value = line.split(',')
-                if len(data_value) != len(entity_list):
-                    print('Number of data not fit to the number of entity')
-                    data_file.close()
-                else:
-                    sql_statement.write('VALUES (' + line + ');')
+                sql_statement.write('INSERT INTO ' + table_name + ' VALUES(' + line + '),\n')
             sql_statement.close()
+
+
