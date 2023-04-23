@@ -13,7 +13,7 @@ doctor = hg.sqlite_data_table(table_name = 'Doctor', table_entity = doctor_entit
 doctor.create_table()
 
 #create dummy data
-dummy_data = open('dummy_data.csv','w')
+dummy_data = open('dummy_data.csv','w', newline = '')
 dummy_list = []
 for i in range(20):
   dummy_list.append(['doc'+str(i),i,i%2])
