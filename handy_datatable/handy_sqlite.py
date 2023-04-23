@@ -13,7 +13,7 @@ class sqlite_data_table(h_dt.data_table):
     def check_value_column(self, datafile):
         entity_num = len(self.entity_list)
         line_num = 0
-        if file_if_exists(datafile) is True:
+        if sqlite_data_table.file_if_exists(datafile) is True:
             data_file = open(datafile)
             for line in data_file:
                 value = line.split(',')
