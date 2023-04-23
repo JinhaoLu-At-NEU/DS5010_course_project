@@ -2,8 +2,9 @@ import unittest
 import os
 import sys
 
+sys.path.append('C:/Users/anish/Downloads/DS5010_course_project-main/handy_datatable')
 
-#import handy_graphviz as hg
+import handy_graphviz as hg
 
 
 class TestVizDataTable(unittest.TestCase):
@@ -12,7 +13,8 @@ class TestVizDataTable(unittest.TestCase):
         manager = setup()[0]#manager table
         manager.add("AGE", "INTEGER")
         self.assertEqual(len(manager), 3,"test_add failed")
-        self.assertIn('AGE', manager.entity_list,"test_add failed")
+        check = ('AGE','INTEGER')
+        self.assertIn(check, manager.entity_list,"test_add failed")
 
     def test_drop_entity(self):
         employee1 = setup()[1]#employee_1 table
@@ -31,7 +33,7 @@ class TestVizDataTable(unittest.TestCase):
    # not sure if this is correct
     def test_get_relations(self):
         employee1 = setup()[1]#employee_1 table
-        self.assertEqual(viz_data_table.get_relations(),employee1.mapping_relation,"test_get_relations failed")
+        self.assertEqual(hg.viz_data_table.get_relations(),employee1.mapping_relation,"test_get_relations failed")
 
     def test_graphviz_convert_export(self):
         employee1 = setup()[1]#employee_1 table
@@ -42,13 +44,14 @@ class TestVizDataTable(unittest.TestCase):
     def test_relation_mapping(self):
         manager = setup()[0]#manager table
         employee1 = setup()[1]#employee_1 table
-        viz_data_table.relation_mapping(manager, employee1, "Manager_ID", "Manager_ID")
-        self.assertEqual(viz_data_table.mapping_relation, [("Manager:Manager_ID", "EMP_1:Manager_ID")],"test_relation failed")
+        hg.viz_data_table.relation_mapping(manager, employee1, "Manager_ID", "Manager_ID")
+        
+        self.assertEqual(hg.viz_data_table.mapping_relation, [("Manager:Manager_ID", "EMP_1:Manager_ID")],"test_relation failed")
 
     def test_drop_relations(self):
-        viz_data_table.mapping_relation = [("Manager:Manager_ID", "EMP_1:Manager_ID"),]
-        viz_data_table.drop_relations(("Manager:Manager_ID", "EMP_1:Manager_ID"))
-        self.assertEqual(viz_data_table.mapping_relation, [])
+        hg.viz_data_table.mapping_relation = [("Manager:Manager_ID", "EMP_1:Manager_ID"),]
+        hg.viz_data_table.drop_relations(("Manager:Manager_ID", "EMP_1:Manager_ID"))
+        self.assertEqual(hg.viz_data_table.mapping_relation, [])
     
     def test_len(self):
         employee1 = setup()[1]#employee_1 table
@@ -59,7 +62,6 @@ def setup():
     """
     Initialize the test case
     """
-    test_table = viz_data_table('test_table')
 
     manager_entity = [('Manager_name','TEXT'),('Manager_ID','INTEGER')]
 
@@ -68,9 +70,9 @@ def setup():
 
 
     #create objects/tables
-    manager = viz_data_table(table_name = 'Manager', table_entity = manager_entity)
+    manager = hg.viz_data_table(table_name = 'Manager', table_entity = manager_entity)
     
-    employee1 = viz_data_table(table_name = 'EMP_1', table_entity = employee1_entity)
+    employee1 = hg.viz_data_table(table_name = 'EMP_1', table_entity = employee1_entity)
     
     return [manager, employee1]
     
