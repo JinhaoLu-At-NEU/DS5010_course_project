@@ -36,7 +36,7 @@ class data_table:
             print("Drop entity fail \n")
             print("Entity name not found \n")
         else:
-            for i in range(table_entity):
+            for i in range(len(table_entity)):
                 e_name = table_entity[i]
                 if e_name[0] == entity_name:
                     table_entity.remove(e_name)
