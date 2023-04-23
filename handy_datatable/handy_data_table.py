@@ -55,7 +55,7 @@ class data_table:
             print(i+1,': ', entity,'\t', dataType)
 
     def __str__(self):
-        return table_status(self)
+        return data_table.table_status(self)
 
     def __len__(self):
         #return number of entity from the table
