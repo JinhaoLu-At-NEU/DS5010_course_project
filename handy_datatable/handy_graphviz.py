@@ -40,7 +40,7 @@ class viz_data_table(h_dt.data_table):
 
     def drop_relations(relation):
         viz_data_table.mapping_relation.remove(relation)
-        print(relation + 'has been dropped')
+        print(str(relation) + 'has been dropped')
 
     def get_relations():
         return viz_data_table.mapping_relation
