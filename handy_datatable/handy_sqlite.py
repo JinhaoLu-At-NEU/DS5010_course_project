@@ -152,7 +152,7 @@ class sqlite_data_table:
             data_file = open(data_file, 'r')
             num = 0
             for line in data_file:
-                sql_statement.write('INSERT INTO ' + table_name + ' VALUES(' + line + '),\n')
+                sql_statement.write('INSERT INTO ' + table_name + ' VALUES(' + line + ');\n')
             sql_statement.close()
 
 
