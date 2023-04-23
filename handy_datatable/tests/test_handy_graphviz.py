@@ -2,7 +2,7 @@ import unittest
 import os
 import sys
 
-sys.path.append('C:/Users/anish/Downloads/DS5010_course_project-main/handy_datatable')
+sys.path.append('/DS5010_course_project-main/handy_datatable')
 
 import handy_graphviz as hg
 
