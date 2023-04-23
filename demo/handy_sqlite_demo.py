@@ -31,5 +31,6 @@ doctor = open('Doctor.sql','r')
 cursor.execute(doctor.read().replace('\n',''))
 
 
+doctor.close()
 cursor.close()
 conn.close()
