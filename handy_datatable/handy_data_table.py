@@ -77,8 +77,8 @@ class data_table:
     def get_pk(self):
         return self.pk
 
-    #def set_fk(self,table2_name,table2_entity_name):
-
+    def get_table_name(self):
+        return self.table_name
 
     def get_fk(self):
         return self.fk 
