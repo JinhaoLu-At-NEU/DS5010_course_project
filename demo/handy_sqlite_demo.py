@@ -1,4 +1,5 @@
 import handy_sqlite as hg
+import csv
 import sqlite3
 
 
@@ -8,29 +9,48 @@ doctor_entity = [('Name','TEXT'),('Depart_ID','TEXT'),('Doc_ID','TEXT')]
 #create objects/tables
 doctor = hg.sqlite_data_table(table_name = 'Doctor', table_entity = doctor_entity)
 
-#convert to sql create table statement
-doctor.create_table()
-
 #create dummy data
 dummy_data = open('dummy_data.csv','w')
+dummy_list = []
+
 for i in range(20):
-  dummy_data.write('d'+str(i)+','+str(i)+','+str(i%2)+'\n')
+  dummy_list.append(['doc'+str(i),i,i%2])
+
+with dummy_data:
+  writer = csv.writer(dummy_data)
+  writer.writerows(dummy_list)
+
 dummy_data.close()
 
-#Generate insert statement
+#create insert statement
 doctor.insert_table('dummy_data.csv','insert_doc.sql')
 
 
-#create sqlite database 
+#create sqlite db file
 conn = sqlite3.connect('demo.db')
 cursor = conn.cursor()
 
 doctor = open('Doctor.sql','r')
+insert_doc = open('insert_doc.sql','r')
 
-#create data table wth the output
+#execute create table statement
 cursor.execute(doctor.read().replace('\n',''))
 
+#execute insert table statement
+for i in insert_doc.read().split(';'):
+  i = i.replace('\n','')
+  cursor.execute(i)
 
-doctor.close()
+#execute select statement 
+cursor.execute('select * from Doctor limit 5;')
+
+#featch result
+result = cursor.fetchall()
+
+
+print(result)
+
+doctor .close()
+insert_doc.close()
 cursor.close()
 conn.close()
