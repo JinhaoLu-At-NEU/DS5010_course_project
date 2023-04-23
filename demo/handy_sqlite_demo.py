@@ -1,5 +1,6 @@
 import handy_sqlite as hg
 import sqlite3
+import csv
 
 
 #Define table entities
