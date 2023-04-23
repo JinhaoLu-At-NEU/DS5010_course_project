@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import csv 
 
 
 sqlite_dataType = ['NULL', 'INTEGER', 'REAL', 'TEXT', 'BLOB']
@@ -87,6 +88,9 @@ class sqlite_data_table:
     def get_pk(self):
         return self.pk
 
+    #def set_fk(self,table2_name,table2_entity_name):
+
+
     def get_fk(self):
         return self.fk 
 
@@ -152,7 +156,7 @@ class sqlite_data_table:
             data_file = open(data_file, 'r')
             num = 0
             for line in data_file:
-                sql_statement.write('INSERT INTO ' + table_name + ' VALUES(' + line + ');\n')
+                line_value = line.split(',')
+                value = ','.join("'"+ item + "'" for item in line_value)
+                sql_statement.write('INSERT INTO ' + table_name + ' VALUES(' + value + ');\n')
             sql_statement.close()
-
-
