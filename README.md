@@ -5,7 +5,7 @@ The main purpose of this package is to visualize the tables from relational data
 
 All of the methods from 'Handy_data_table' offer a data table structure object, ‘Handy_graphviz’ and ‘Handy_sqlite are the derived class of the ‘Handy_data_table’. The objects initiated under ‘Handy_sqlite’ and ‘Handy_graphviz’ inherit the attributes and methods from ‘Handy_data_table’.
 
-#Example 
+# Example 
 
 Create 'viz_data_table' object
 
