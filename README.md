@@ -67,6 +67,8 @@ doctor = hg.sqlite_data_table(table_name = 'Doctor', table_entity = doctor_entit
 
 #convert to sql create table statement
 doctor.create_table()
+
+doctor.insert_table('dummy_data.csv','insert_doc.sql')
 ```
 
 With the 'create_table' method, the SQL script of creating the 'Doctor'table will be generated.
