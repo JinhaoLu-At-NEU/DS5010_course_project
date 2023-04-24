@@ -37,4 +37,17 @@ patient1.graphviz_convert_export('patient1.txt')
 With the graphviz_convert_export method, the content of the object will be convert to the dot script into a text file.
 Then the user can read the text file and apply it to graphviz for generating visualization.
 
-
+```html
+<<TABLE BORDARD="0" CELLBORDER="1" CELLSPACING ="0">
+<TR>
+<TD PORT='Name'>Name</TD>
+</TR>
+<TR>
+<TD PORT='Depart_ID'>Depart_ID</TD>
+</TR>
+<TR>
+<TD PORT='Doc_ID'>Doc_ID</TD>
+</TR>
+</TABLE>>
+```
+Example of data table dot script 
