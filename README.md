@@ -5,7 +5,7 @@ The main purpose of this package is to visualize the tables from relational data
 
 All of the methods from 'Handy_data_table' offer a data table structure object, ‘Handy_graphviz’ and ‘Handy_sqlite are the derived class of the ‘Handy_data_table’. The objects initiated under ‘Handy_sqlite’ and ‘Handy_graphviz’ inherit the attributes and methods from ‘Handy_data_table’.
 
-# Example 
+# Example Handy_graphviz
 
 Create 'viz_data_table' object
 
@@ -50,4 +50,33 @@ Then the user can read the text file and apply it to graphviz for generating vis
 </TR>
 </TABLE>>
 ```
-Example of data table dot script 
+Output example of the 'Doctor' object data table dot script 
+
+
+# Example Handy_sqlite
+
+Handy_sqlite and Handy_graphviz both are the derived class of Handy_data_table.
+Therefore, they have the same way to initiate the object.
+
+```python
+#Define table entities
+doctor_entity = [('Name','TEXT'),('Depart_ID','TEXT'),('Doc_ID','TEXT')]
+
+#create objects/tables
+doctor = hg.sqlite_data_table(table_name = 'Doctor', table_entity = doctor_entity)
+
+#convert to sql create table statement
+doctor.create_table()
+```
+
+With the 'create_table' method, the SQL script of creating the 'Doctor'table will be generated.
+
+```SQL
+CREATE TABLE Doctor(
+Name TEXT,
+Depart_ID TEXT,
+Doc_ID TEXT);
+```
+
+Then connect to the SQLite db file and execute this create table statement.
+The table 'Doctor' will be created in the SQLite db file.
