@@ -34,7 +34,7 @@ department.graphviz_convert_export('department.txt')
 doctor.graphviz_convert_export('doctor.txt')
 patient1.graphviz_convert_export('patient1.txt')
 ```
-With the graphviz_convert_export method, the content of the object will be convert to the dot script into a text file.
+With the graphviz_convert_export method, the content of the object will be converted to the dot script into a text file.
 Then the user can read the text file and apply it to graphviz for generating visualization.
 
 ```html
